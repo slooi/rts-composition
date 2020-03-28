@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>RTS3</title>
+	</head>
+	<body>
+		<script type="shader" id="vsSource">
+			attribute vec2 a_Position;
+
+			void main(){
+				gl_Position = vec4(a_Position/150.0,0,1);
+				gl_PointSize = 10.0;
+			}
+		</script>
+		<script type="shader" id="fsSource">
+			precision mediump float;
+
+			void main(){
+				gl_FragColor = vec4(1,1,0,1);
+			}
+		</script>
+		<script src="components.js"></script>
+		<script src="entities.js"></script>
+		<script src="controllers.js"></script>
+		<script src="webgl.js"></script>
+		<script src="main.js"></script>
+	</body>
+</html>
