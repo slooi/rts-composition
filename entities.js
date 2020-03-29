@@ -1,71 +1,58 @@
 console.log('entities.js loaded')
 
-function createEntity(componentList,entityStat){
 
-	const state = {
-		x:0,
-		y:0,
-		speed:5,
-		tick:[],
-		// collisionCheck,
-		// collisionResolve,
-		controls:{
-			delX:0,
-			delY:0
-		},
-		...entityStat
-	}
-
-	// add components to tick + Initialise components
-	componentList.forEach(component=>{
-		// console.log('tick',state.tick	)
-		state.tick.push(component())
+//###########
+// ENTITY HELPER		(AREN'T These just components?)  => No dependents
+//###########
+function removeComponent(compName){
+	compClean(this,compName)
+	delete this[compName]
+}
+function addComponent(compName){
+	compInit(this,compName)
+	this[compName] = comps[compName].update
+}
+function updateComponent(){
+	this.componentList.forEach(compName=>{
+		this[compName]()
+	
 	})
-	console.log('tick',state.tick	)
-	// define Update
-	state.update=()=>{
-		state.tick.forEach(compObj=>{
-			// console.log(state)
-			compObj.update(state)
-		})
+}
+function subToUserInputs(userInputs){
+	this.inputs = userInputs
+}
+function unsubToUserInputs(){
+	delete this.inputs
+}
+function getPos(){
+	return [this.x,this.y]
+}
+
+//###########
+// ENTITY
+//###########
+function createEntity(componentList=[],entityState){
+	const state = {
+		q:1,
+		compVars:{},
+		componentList,
+		...entityState,
+
+		// SHARED
+		add:addComponent,
+		remove:removeComponent,
+		update:updateComponent,
+		sub:subToUserInputs,
+		unsub:unsubToUserInputs,
+		getPos
 	}
 
-	// define Sub
-	state.sub=userInputs=>state.inputs = userInputs
-
-	// get Position
-	state.getPos=()=>[state.x,state.y]
+	// SETUP
+	// add Component functions
+	componentList.forEach(compName=>{
+		compInit(state,compName)
+		state[compName] = comps[compName].update
+	})
 
 	return state
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

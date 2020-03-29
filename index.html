@@ -3,14 +3,14 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
-		<title>RTS3</title>
+		<title>RTS3- using this</title>
 	</head>
 	<body>
 		<script type="shader" id="vsSource">
 			attribute vec2 a_Position;
 
 			void main(){
-				gl_Position = vec4(a_Position/150.0,0,1);
+				gl_Position = vec4(vec2(a_Position.x-150.0,-a_Position.y+150.0)/150.0,0,1);
 				gl_PointSize = 10.0;
 			}
 		</script>

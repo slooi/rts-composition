@@ -8,7 +8,7 @@ canvas.width = 300
 canvas.height = 300
 document.body.append(canvas)
 
-let gl = canvas.getContext('webgl')
+let gl = canvas.getContext('webgl',{antialias:false})
 if(!gl){
 	gl = canvas.getContext('experimental-webgl')
 }
@@ -47,7 +47,7 @@ const data = [
 // buffer
 const positionBuffer = gl.createBuffer()
 gl.bindBuffer(gl.ARRAY_BUFFER,positionBuffer)
-gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(data),gl.STATIC_DRAW)
+gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(data),gl.DYNAMIC_DRAW)
 
 // pointer
 gl.vertexAttribPointer(
@@ -69,7 +69,7 @@ function clear(){
 
 function render(data){
 	gl.bindBuffer(gl.ARRAY_BUFFER,positionBuffer)
-	gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(data),gl.STATIC_DRAW)
+	gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(data),gl.DYNAMIC_DRAW)
 
 	gl.drawArrays(gl.POINTS,0,data.length/2)
 	// gl.drawArrays(gl.TRIANGLES,0,data.length/2)
