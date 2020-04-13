@@ -25,15 +25,25 @@ function unsubToUserInputs(){
 	delete this.inputs
 }
 function getPos(){
-	return [this.x,this.y]
+	// return [this.x,this.y]
+	// return [this.x,this.y-20,this.x-10,this.y+10,this.x+10,this.y+10]
+	return [
+		this.x-10,this.y-10,this.x-10,this.y+10,this.x+10,this.y+10,
+		this.x-10,this.y-10,this.x+10,this.y-10,this.x+10,this.y+10
+	]
 }
+// function upload(renderBuffer){
+// 	renderBuffer.push(...[
+// 		this.x-10,this.y-10,this.x-10,this.y+10,this.x+10,this.y+10,
+// 		this.x-10,this.y-10,this.x+10,this.y-10,this.x+10,this.y+10
+// 	])
+// }
 
 //###########
 // ENTITY
 //###########
 function createEntity(componentList=[],entityState){
 	const state = {
-		q:1,
 		compVars:{},
 		componentList,
 		...entityState,
@@ -44,7 +54,8 @@ function createEntity(componentList=[],entityState){
 		update:updateComponent,
 		sub:subToUserInputs,
 		unsub:unsubToUserInputs,
-		getPos
+		getPos,
+		// upload
 	}
 
 	// SETUP

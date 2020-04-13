@@ -6,6 +6,8 @@ const fsSource = document.getElementById('fsSource').innerText
 const canvas = document.createElement('canvas')
 canvas.width = 300
 canvas.height = 300
+canvas.style.width = canvas.width+'px'
+canvas.style.height = canvas.height+'px'
 document.body.append(canvas)
 
 let gl = canvas.getContext('webgl',{antialias:false})
@@ -16,6 +18,7 @@ if(!gl){
 	alert('Webgl not supported. Please use an updated browser which supports webgl')
 }
 
+// gl.viewport(0,0,500,500)
 gl.viewport(0,0,canvas.width,canvas.height)
 gl.clearColor(0,0,1,1)
 gl.clear(gl.COLOR_BUFFER_BIT)
@@ -71,8 +74,8 @@ function render(data){
 	gl.bindBuffer(gl.ARRAY_BUFFER,positionBuffer)
 	gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(data),gl.DYNAMIC_DRAW)
 
-	gl.drawArrays(gl.POINTS,0,data.length/2)
-	// gl.drawArrays(gl.TRIANGLES,0,data.length/2)
+	// gl.drawArrays(gl.POINTS,0,data.length/2)
+	gl.drawArrays(gl.TRIANGLES,0,data.length/2)
 }
 
 function buildShader(type,source){
